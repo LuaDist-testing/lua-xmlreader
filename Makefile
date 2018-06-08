@@ -4,16 +4,11 @@ LUAINC= $(LUA)/include
 LUALIB= $(LUA)/lib
 LUABIN= $(LUA)/bin
 
-LIBXML2=/usr
-LIBXML2INC=$(LIBXML2)/include/libxml2
-LIBXML2LIB=$(LIBXML2)/lib
-
 # no need to change anything below here
 CFLAGS= $(INCS) $(DEFS) $(WARN) -O2
 WARN= -Wall
-INCS= -I$(LUAINC) -I$(LIBXML2INC)
-LIBS= -lxml2 -L$(LIBXML2LIB)
-LIBFLAG= -shared
+INCS= -I$(LUAINC) -I/usr/include/libxml2/
+LIBS= -lxml2
 
 OBJS= xmlreader.o error.o
 
@@ -22,7 +17,7 @@ SOS= xmlreader.so
 all: $(SOS)
 
 $(SOS): $(OBJS)
-	$(CC) -o $@ $(LIBFLAG) $(OBJS) $(LIBS)
+	$(CC) -o $@ -shared $(OBJS) $(LIBS)
 
 .PHONY: clean doc
 clean:
